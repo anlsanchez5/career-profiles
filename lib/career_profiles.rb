@@ -1,6 +1,12 @@
-require "career_profiles/version"
-
 module CareerProfiles
-  class Error < StandardError; end
-  # Your code goes here...
 end
+
+require 'pry'
+require 'nokogiri'
+require 'open-uri'
+
+require_relative '../lib/career_profiles/scraper'
+require_relative '../lib/career_profiles/career'
+require_relative '../lib/career_profiles/occupation'
+require_relative '../lib/career_profiles/cli'
+require_relative '../lib/career_profiles/version'
