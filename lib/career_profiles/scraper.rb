@@ -1,5 +1,5 @@
 require'pry'
-CareerProfiles::Scraper
+class CareerProfiles::Scraper
   def self.get_page
     Nokogiri::HTML(open("http://www.careerprofiles.info/careers.html"))
   end
@@ -16,14 +16,16 @@ CareerProfiles::Scraper
 
     urls = []
     scrape_page_index.each do |c|
-      urls << c.attribute("").text
+      urls << c.attribute("href").text
+      end
+      urls.each do |u|
+        u.insert(0,"http://www.careerprofiles.info/")
     end
 
     careers = []
     names.each {|name| careers << {:name => name}}
     u = 0
-    urls.each {|url| career[u][:url] = url; u += 1}
+    urls.each {|url| careers[u][:url] = url; u += 1}
     careers
   end
-
 end

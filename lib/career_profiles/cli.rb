@@ -23,12 +23,14 @@ class CareerProfiles::CLI
     CareerProfiles::Career.all.each do |career|
       occupation_info ||= CareerProfiles::Scraper.scrape_occupations(career.url)
       CareerProfiles::Occupation.new_from_collection(occupation_info)
+    end
   end
 
   def add_attributes_to_occupations
     CareerProfiles::Occupation.all.each do |career|
       attributes = CareerProfiles::Scraper.scrape_occupation_page(career.url)
       career.add_attributes(attributes)
+    end
   end
 
   def list_careers
@@ -37,6 +39,7 @@ class CareerProfiles::CLI
     @careers.each.with_index(1) do |cuisine, i|
       puts "#{i}. #{career.name}"
     end
+  end
 
     def career
       list_careers
@@ -83,7 +86,7 @@ class CareerProfiles::CLI
       input = gets.strip
       if input == "Y" || input == "y"
         start
-      elsif input == "N" || input = "n"
+      elsif input == "N" || input == "n"
         goodbye
         exit
       else

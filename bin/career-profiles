@@ -2,4 +2,4 @@
 
 require_relative '../lib/career_profiles'
 
-WorldsBestRestaurants::CLI.new.call
+CareerProfiles::CLI.new.run

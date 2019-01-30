@@ -1,6 +1,6 @@
 require 'pry'
 class CareerProfiles::Career
-  attr_accesor :name, :url, :occupations
+  attr_accessor :name, :url, :occupations
   @@all = []
 
   def initialze(career_hash)
