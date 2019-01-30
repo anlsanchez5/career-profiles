@@ -28,4 +28,20 @@ class CareerProfiles::Scraper
     urls.each {|url| careers[u][:url] = url; u += 1}
     careers
   end
+
+  def get_career_page(link)
+    Nokogiri::HTML(open(link))
+  end
+
+  def self.scrape_career_page_index(link)
+    get_career_page(link).css("div.mainContent table td")
+  end
+
+  def self.scrape_occupations(link)
+    names = []
+    scrape_career_page_index(link).each do |o|
+      names << o.css("a b").text
+    end
+    names.delete("")
+  end
 end
