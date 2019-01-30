@@ -40,8 +40,9 @@ class CareerProfiles::Scraper
   def self.scrape_occupations(link)
     names = []
     scrape_career_page_index(link).each do |o|
-      names << o.css("a b").text
+      names << o.css("a").text
     end
     names.delete("")
+
   end
 end
