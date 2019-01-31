@@ -1,12 +1,13 @@
 class CareerProfiles::Occupation
-  attr_accessor :name, :url, :overview, :work_environment, :education, :pay, :job_outlook
+  attr_accessor :name, :url, :summary, :education, :median_pay_2018
   @@all = []
 
   def self.all
     @@all
   end
 
-  def initialze(occupation_hash)
+  def initialize(occupation_hash)
+
     occupation_hash.each {|key, value| self.send(("#{key}="), value)}
     @@all << self
   end
