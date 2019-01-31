@@ -1,5 +1,5 @@
 class CareerProfiles::Occupation
-  attr_accesor :name, :url, :overview, :work_environment, :education, :pay, :job_outlook
+  attr_accessor :name, :url, :overview, :work_environment, :education, :pay, :job_outlook
   @@all = []
 
   def self.all

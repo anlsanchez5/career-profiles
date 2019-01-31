@@ -29,7 +29,7 @@ class CareerProfiles::Scraper
     careers
   end
 
-  def get_career_page(link)
+  def self.get_career_page(link)
     Nokogiri::HTML(open(link))
   end
 

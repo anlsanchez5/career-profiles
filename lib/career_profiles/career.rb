@@ -3,9 +3,9 @@ class CareerProfiles::Career
   attr_accessor :name, :url, :occupations
   @@all = []
 
-  def initialze(career_hash)
+  def initialize(career_hash)
     career_hash.each {|key, value| self.send(("#{key}="), value)}
-    @@all.self
+    @@all << self
   end
 
   def self.new_from_collection(career_array)
@@ -26,7 +26,7 @@ class CareerProfiles::Career
     end
   end
 
-  
+
 
 
 end
