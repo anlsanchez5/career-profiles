@@ -52,27 +52,27 @@ class CareerProfiles::Scraper
       u.insert(0,"http://www.careerprofiles.info/")
     end
 
-    summary_index = get_career_page(link).css("div.mainContent table")
+    summary_index = get_career_page(link).css("div.mainContent table tr")
     summaries = []
-    i = 1
     summary_index.each do |s|
-      si = s.css("tr")[i]
-      summaries << si.css("td")[1].text
-      i += 1
+      summaries << s.css("td")[1].text unless s == nil
     end
+    summaries.delete("Summary")
+    summaries.compact
 
     educations = []
-    i = 1
     summary_index.each do |s|
-      educations << s.css("tr")[i].css("td")[2].text
-      i += 1
+      educations << s.css("td")[2].text unless s == nil
     end
+    educations.delete("Education")
+    educations.compact
+
     median_pays = []
-    i = 1
     summary_index.each do |s|
-      median_pays << s.css("tr")[i].css("td")[3].text
-      i += 1
+      median_pays << s.css("td")[3].text unless s == nil
     end
+    median_pays.delete("2018 Median Pay")
+    median_pays.compact
 
 
     occupations = []
