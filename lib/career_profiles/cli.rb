@@ -27,16 +27,16 @@ class CareerProfiles::CLI
   end
 
   def add_attributes_to_occupations
-    CareerProfiles::Occupation.all.each do |career|
-      attributes = CareerProfiles::Scraper.scrape_occupation_page(career.url)
-      career.add_attributes(attributes)
+    CareerProfiles::Occupation.all.each do |occupation|
+      attributes = CareerProfiles::Scraper.scrape_occupation_attributes(career.url)
+      occupation.add_attributes(attributes)
     end
   end
 
   def list_careers
-    puts "Career Profiles and Occupations"
+    puts "Welcome to Occupation Profiles by Career"
     @careers = CareerProfiles::Career.all
-    @careers.each.with_index(1) do |cuisine, i|
+    @careers.each.with_index(1) do |career, i|
       puts "#{i}. #{career.name}"
     end
   end
@@ -45,7 +45,7 @@ class CareerProfiles::CLI
       list_careers
       puts ""
       puts "Enter the number of the career you'd like to see occupations on or type exit:"
-      @input << get.strip.downcase
+      @input << gets.strip.downcase
       if @input.last.to_i > 0 && @input.last.to_i <= @careers.length.to_i
         @careers[@input.last.to_i-1].list_occupations
       elsif @input.last == "exit"

@@ -16,7 +16,7 @@ class CareerProfiles::Occupation
     occupation_array.each{|occupation_hash| self.new(occupation_hash)}
   end
 
-  def add_occupation_attributes(attributes_hash)
+  def add_attributes(attributes_hash)
     attributes_hash.each {|key, value| self.send(("#{key}="), value)}
   end
 
