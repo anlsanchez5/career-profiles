@@ -1,25 +1,25 @@
 require'pry'
 class CareerProfiles::Scraper
   def self.get_page
-    Nokogiri::HTML(open("http://www.careerprofiles.info/careers.html"))
+    Nokogiri::HTML(open("https://learn.org/article_directory/Career_Profiles.html"))
   end
 
   def self.scrape_page_index
-    get_page.css("div.mainText a")
+    get_page.css("div#articleContent h3.subCatTitle")
   end
 
   def self.scrape_careers
     names = []
     scrape_page_index.each do |c|
-      names << c.text
+      names << c.css("a").text
     end
 
     urls = []
     scrape_page_index.each do |c|
-      urls << c.attribute("href").text
+      urls << c.css("a").attribute("href").text
       end
       urls.each do |u|
-        u.insert(0,"http://www.careerprofiles.info/")
+        u.insert(0,"https://learn.org")
       end
 
     careers = []
@@ -34,15 +34,19 @@ class CareerProfiles::Scraper
   end
 
   def self.scrape_career_page_index(link)
-    get_career_page(link).css("div.mainContent table td a")
+    get_career_page(link).css("div#articleContent h4")
   end
 
   def self.scrape_occupations(link)
-    names = []
+    list = []
     scrape_career_page_index(link).each do |n|
-      names << n.text
+      list << n.css("a").text
     end
-    names.delete("")
+    list.pop
+    names = []
+    list.each do |o|
+      names << o[/[^:]+/]
+    end
 
     urls = []
     scrape_career_page_index(link).each do |u|
