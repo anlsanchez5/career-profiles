@@ -81,7 +81,7 @@ class CareerProfiles::Scraper
     summary = scrape_occupation_page_index(link).css("p")[0].text
 
     degree_required = scrape_occupation_page_index(link).css("table.wikitable tr")[0].css("td")[1].text
-
+binding.pry
     field_of_study = scrape_occupation_page_index(link).css("table.wikitable tr")[1].css("td")[1].text
 
     key_responsibilities = scrape_occupation_page_index(link).css("table.wikitable tr")[2].css("td")[1].text
