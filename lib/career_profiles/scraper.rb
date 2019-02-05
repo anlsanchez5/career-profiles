@@ -15,7 +15,7 @@ class CareerProfiles::Scraper
     end
     names = []
     list.map! do |c|
-      c.gsub("Career Profiles", "")
+      names << c.gsub("Career Profiles", "")
     end
 
 

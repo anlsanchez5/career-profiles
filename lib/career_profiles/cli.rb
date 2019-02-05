@@ -28,8 +28,8 @@ class CareerProfiles::CLI
 
   def add_attributes_to_occupations
     CareerProfiles::Occupation.all.each do |occupation|
-      attributes = CareerProfiles::Scraper.scrape_occupation_attributes(career.url)
-      occupation.add_attributes(attributes)
+      attributes_hash = CareerProfiles::Scraper.scrape_occupation_attributes(occupation.url)
+      occupation.add_attributes(attributes_hash)
     end
   end
 
@@ -45,10 +45,10 @@ class CareerProfiles::CLI
       list_careers
       puts ""
       puts "Enter the number of the career you'd like to see occupations on or type exit:"
-      @input << gets.strip.downcase
+      @input << gets.strip
       if @input.last.to_i > 0 && @input.last.to_i <= @careers.length.to_i
         @careers[@input.last.to_i-1].list_occupations
-      elsif @input.last == "exit"
+      elsif @input.last.downcase == "exit"
         goodbye
         exit
       else
@@ -67,9 +67,9 @@ class CareerProfiles::CLI
       occupations = @careers[i.to_i-1].occupations
       if @input.last.to_i > 0 && @input.last.to_i <= occupations.lenth.to_i
         occupations[@input.last.to_i-1].display_occupation
-      elsif @input.last == "back"
+      elsif @input.last.downcase == "back"
         start
-      elsif @input.last == "exit"
+      elsif @input.last.downcase == "exit"
         goodbye
         exit
       else
