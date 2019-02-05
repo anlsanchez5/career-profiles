@@ -9,10 +9,15 @@ class CareerProfiles::Scraper
   end
 
   def self.scrape_careers
-    names = []
+    list = []
     scrape_page_index.each do |c|
-      names << c.css("a").text
+      list << c.css("a").text
     end
+    names = []
+    list.map! do |c|
+      c.gsub("Career Profiles", "")
+    end
+
 
     urls = []
     scrape_page_index.each do |c|
@@ -71,7 +76,7 @@ class CareerProfiles::Scraper
   def self.scrape_occupation_page_index(link)
     get_occupation_page(link).css("div.wikiContent")
   end
-  
+
   def self.scrape_occupation_attributes(link)
     summary = scrape_occupation_page_index(link).css("p")[0].text
 
@@ -81,20 +86,20 @@ class CareerProfiles::Scraper
 
     key_responsibilities = scrape_occupation_page_index(link).css("table.wikitable tr")[2].css("td")[1].text
 
-    licensure = scrape_occupation_page_index(link).css("table.wikitable tr")[3].css("td")[1].text
+  #  licensure = scrape_occupation_page_index(link).css("table.wikitable tr")[3].css("td")[1].text
 
-    job_growth2014_2024 = scrape_occupation_page_index(link).css("table.wikitable tr")[4].css("td")[1].text
+  #  job_growth2014_2024 = scrape_occupation_page_index(link).css("table.wikitable tr")[4].css("td")[1].text
 
-    average_salary_2015 = scrape_occupation_page_index(link).css("table.wikitable tr")[5].css("td")[1].text
+  #  average_salary_2015 = scrape_occupation_page_index(link).css("table.wikitable tr")[5].css("td")[1].text
 
     occupation_attributes = {
       :summary => summary,
       :degree_required => degree_required,
       :field_of_study => field_of_study,
       :key_responsibilities => key_responsibilities,
-      :licensure => licensure,
-      :job_growth2014_2024 => job_growth2014_2024,
-      :average_salary_2015 => average_salary_2015
+      #:licensure => licensure,
+      #:job_growth2014_2024 => job_growth2014_2024,
+      #:average_salary_2015 => average_salary_2015
     }
 
     occupation_attributes
