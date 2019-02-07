@@ -22,8 +22,7 @@ class CareerProfiles::CLI
   def add_occupations_to_careers
     CareerProfiles::Career.all.each.with_index do |career, i|
       occupation_hash ||= CareerProfiles::Scraper.scrape_occupations(i)
-      career.occupations = CareerProfiles::Occupation.new_from_collection(occupation_hash)
-      binding.pry
+      career.add_occupations(occupation_hash)
     end
   end
 

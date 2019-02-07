@@ -6,6 +6,7 @@ class CareerProfiles::Career
   def initialize(career_hash)
     career_hash.each {|key, value| self.send(("#{key}="), value)}
     @@all << self
+    @occupations = []
   end
 
   def self.new_from_collection(career_array)
@@ -16,12 +17,12 @@ class CareerProfiles::Career
     @@all
   end
 
-  def add_occupations
-    CareerProfiles::Occupation.new_from_collection(occupation_hash)
+  def add_occupations(occupation_hash)
+    occupation = CareerProfiles::Occupation.new_from_collection(occupation_hash)
+    @occupations << occupation   
   end
 
   def list_occupations
-    binding.pry
     @occupations.each.with_index(1) do |occupation, i|
       puts "#{i}. #{occupation.name}"
     end
