@@ -65,7 +65,7 @@ class CareerProfiles::CLI
       @input << gets.strip.downcase
       i = @input[(@input.length)-2]
       occupations = @careers[i.to_i-1].occupations
-      if @input.last.to_i > 0 && @input.last.to_i <= occupations.lenth.to_i
+      if @input.last.to_i > 0 && @input.last.to_i <= occupations.length.to_i
         occupations[@input.last.to_i-1].display_occupation
       elsif @input.last.downcase == "back"
         start

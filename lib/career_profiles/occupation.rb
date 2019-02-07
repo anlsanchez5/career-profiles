@@ -22,5 +22,26 @@ class CareerProfiles::Occupation
   end
 
   def display_occupation
+    puts " "
+    puts "Name: #{self.name}"
+    puts "For more information click here: #{self.url}"
+    puts "------------------------"
+    puts " "
+    puts "KEY RESPONSIBILITIES"
+    puts "----------------------"
+    puts "#{self.key_responsibilities}"
+    puts " "
+    puts "EDUCATION REQUIRED" 
+    puts "----------------------"
+    puts "#{self.education}"
+    puts " "
+    puts "JOB OUTLOOK 2016-2026"
+    puts "----------------------"
+    puts "#{self.outlook_2016_26}"
+    puts " "
+    puts "2017 MEDIAN PAY"
+    puts "----------------------"
+    puts "#{self.median_pay_2017}"
+    binding.pry
   end
 end
