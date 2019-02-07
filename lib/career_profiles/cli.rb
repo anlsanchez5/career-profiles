@@ -20,9 +20,9 @@ class CareerProfiles::CLI
   end
 
   def add_occupations_to_careers
-    CareerProfiles::Career.all.each do |career|
-      occupation_info ||= CareerProfiles::Scraper.scrape_occupations(career.url)
-      CareerProfiles::Occupation.new_from_collection(occupation_info)
+    CareerProfiles::Career.all.each.with_index do |career, i|
+      occupation_hash ||= CareerProfiles::Scraper.scrape_occupations(i)
+      career.occupations = CareerProfiles::Occupation.new_from_collection(occupation_hash)
     end
   end
 

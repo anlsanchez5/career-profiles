@@ -1,66 +1,68 @@
 require'pry'
 class CareerProfiles::Scraper
   def self.get_page
-    Nokogiri::HTML(open("https://learn.org/article_directory/Career_Profiles.html"))
+    Nokogiri::HTML(open("https://www.bls.gov/k12/content/students/careers/career-exploration.htm"))
   end
 
-  def self.scrape_page_index
-    get_page.css("div#articleContent h3.subCatTitle")
-  end
+#  def self.scrape_page_index
+#    get_page.css("div.careerCol p.careerList")
+#  end
 
   def self.scrape_careers
-    list = []
-    scrape_page_index.each do |c|
-      list << c.css("a").text
-    end
     names = []
-    list.map! do |c|
-      names << c.gsub("Career Profiles", "")
+    names_index = get_page.css("div.careerCol p.careerList")
+    names_index.each do |c|
+      names << c.text
     end
+  #  names = []
+  #  list.map! do |c|
+  #    names << c.gsub("Career Profiles", "")
+  #  end
 
+
+  #  urls = []
+  #  scrape_page_index.each do |c|
+  #    urls << c.css("a").attribute("href").text
+  #    end
+  #    urls.each do |u|
+  #      u.insert(0,"https://learn.org")
+  #    end
+
+  #  careers = []
+  #  names.each {|name| careers << {:name => name}}
+  #  u = 0
+  #  urls.each {|url| careers[u][:url] = url; u += 1}
+  #  careers
+  end
+
+#  def self.get_career_page(link)
+#    Nokogiri::HTML(open(link))
+#  end
+
+#  def self.scrape_career_page_index(link)
+#    get_career_page(link).css("div#articleContent h4")
+#  end
+
+  def self.scrape_occupations(i)
+    names = []
+    career_index = get_page.css("div.careerNames ul")[i]
+    career_index.each do |o|
+      names << o.css("a").text
+    end
+#    list.pop
+#    names = []
+#    list.each do |o|
+#      names << o[/[^:]+/]
+#    end
 
     urls = []
-    scrape_page_index.each do |c|
-      urls << c.css("a").attribute("href").text
-      end
-      urls.each do |u|
-        u.insert(0,"https://learn.org")
-      end
-
-    careers = []
-    names.each {|name| careers << {:name => name}}
-    u = 0
-    urls.each {|url| careers[u][:url] = url; u += 1}
-    careers
-  end
-
-  def self.get_career_page(link)
-    Nokogiri::HTML(open(link))
-  end
-
-  def self.scrape_career_page_index(link)
-    get_career_page(link).css("div#articleContent h4")
-  end
-
-  def self.scrape_occupations(link)
-    list = []
-    scrape_career_page_index(link).each do |o|
-      list << o.css("a").text
-    end
-    list.pop
-    names = []
-    list.each do |o|
-      names << o[/[^:]+/]
-    end
-
-    urls = []
-    scrape_career_page_index(link).each do |o|
+    career_index.each do |o|
       urls << o.css("a").attribute('href').text
     end
-    urls.pop
-    urls.each do |u|
-      u.insert(0,"https://learn.org")
-    end
+#    urls.pop
+#    urls.each do |u|
+#      u.insert(0,"https://learn.org")
+#    end
 
     occupations = []
     names.each {|name| occupations << {:name => name}}
@@ -73,33 +75,30 @@ class CareerProfiles::Scraper
     Nokogiri::HTML(open(link))
   end
 
-  def self.scrape_occupation_page_index(link)
-    get_occupation_page(link).css("div.wikiContent")
-  end
+#  def self.scrape_occupation_page_index(link)
+#    get_occupation_page(link).css("table.quickfacts tbody tr")
+#  end
 
   def self.scrape_occupation_attributes(link)
-    summary = scrape_occupation_page_index(link).css("p")[0].text
+    index = get_occupation_page(link).css("table#quickfacts tbody tr")
+    pay_index = index[0]
+    med_pay = pay_index.css("td").text.strip
+    med_pay = med_pay.gsub(" ", "")
 
-    degree_required = scrape_occupation_page_index(link).css("table.wikitable tr")[0].css("td")[1].text
-binding.pry
-    field_of_study = scrape_occupation_page_index(link).css("table.wikitable tr")[1].css("td")[1].text
+    education_index = index[1]
+    education = education_index.css("td").text.strip
 
-    key_responsibilities = scrape_occupation_page_index(link).css("table.wikitable tr")[2].css("td")[1].text
+    outlook_index = index[5]
+    outlook_2016_26 = outlook_index.css("td").text.strip
 
-  #  licensure = scrape_occupation_page_index(link).css("table.wikitable tr")[3].css("td")[1].text
-
-  #  job_growth2014_2024 = scrape_occupation_page_index(link).css("table.wikitable tr")[4].css("td")[1].text
-
-  #  average_salary_2015 = scrape_occupation_page_index(link).css("table.wikitable tr")[5].css("td")[1].text
+    role_index = get_occupation_page(link).css("article")
+    role = role_index.css("p")[1].text
 
     occupation_attributes = {
-      :summary => summary,
-      :degree_required => degree_required,
-      :field_of_study => field_of_study,
-      :key_responsibilities => key_responsibilities,
-      #:licensure => licensure,
-      #:job_growth2014_2024 => job_growth2014_2024,
-      #:average_salary_2015 => average_salary_2015
+      :median_pay_2017 => med_pay,
+      :education => education,
+      :outlook_2016_26 => outlook_2016_26,
+      :key_responsibilities => role,
     }
 
     occupation_attributes
