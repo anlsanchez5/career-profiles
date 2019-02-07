@@ -14,11 +14,9 @@ class CareerProfiles::Scraper
     names_index.each do |c|
       names << c.text
     end
-  #  names = []
-  #  list.map! do |c|
-  #    names << c.gsub("Career Profiles", "")
-  #  end
-
+    names.map! do |c|
+      c.gsub("[+] Show]", "")
+    end
 
   #  urls = []
   #  scrape_page_index.each do |c|
@@ -28,11 +26,11 @@ class CareerProfiles::Scraper
   #      u.insert(0,"https://learn.org")
   #    end
 
-  #  careers = []
-  #  names.each {|name| careers << {:name => name}}
+    careers = []
+    names.each {|name| careers << {:name => name}}
   #  u = 0
   #  urls.each {|url| careers[u][:url] = url; u += 1}
-  #  careers
+    careers
   end
 
 #  def self.get_career_page(link)
@@ -45,10 +43,11 @@ class CareerProfiles::Scraper
 
   def self.scrape_occupations(i)
     names = []
-    career_index = get_page.css("div.careerNames ul")[i]
+    career_index = get_page.css("div.careerNames ul")[i].css("a")
     career_index.each do |o|
-      names << o.css("a").text
+      names << o.text
     end
+    names.delete_if {|x| x == "Designer"}
 #    list.pop
 #    names = []
 #    list.each do |o|
@@ -57,8 +56,9 @@ class CareerProfiles::Scraper
 
     urls = []
     career_index.each do |o|
-      urls << o.css("a").attribute('href').text
+      urls << o.attribute("href").text
     end
+    urls.delete_if {|x| x == "https://www.bls.gov/ooh/arts-and-design/home.htm"}
 #    urls.pop
 #    urls.each do |u|
 #      u.insert(0,"https://learn.org")

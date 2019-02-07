@@ -23,6 +23,7 @@ class CareerProfiles::CLI
     CareerProfiles::Career.all.each.with_index do |career, i|
       occupation_hash ||= CareerProfiles::Scraper.scrape_occupations(i)
       career.occupations = CareerProfiles::Occupation.new_from_collection(occupation_hash)
+      binding.pry
     end
   end
 
