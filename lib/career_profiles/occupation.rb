@@ -31,7 +31,7 @@ class CareerProfiles::Occupation
     puts "----------------------"
     puts "#{self.key_responsibilities}"
     puts " "
-    puts "EDUCATION REQUIRED" 
+    puts "EDUCATION REQUIRED"
     puts "----------------------"
     puts "#{self.education}"
     puts " "
@@ -42,6 +42,5 @@ class CareerProfiles::Occupation
     puts "2017 MEDIAN PAY"
     puts "----------------------"
     puts "#{self.median_pay_2017}"
-    binding.pry
   end
 end

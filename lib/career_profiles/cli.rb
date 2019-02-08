@@ -42,12 +42,12 @@ class CareerProfiles::CLI
   end
 
     def career_interest
-      list_careers
+      list_career_interests
       puts ""
       puts "Enter the number of the career interest you'd like to see occupations on or type exit:"
       @input << gets.strip
       if @input.last.to_i > 0 && @input.last.to_i <= @career_interests.length.to_i
-        @career_interest[@input.last.to_i-1].list_occupations
+        @career_interests[@input.last.to_i-1].list_occupations
       elsif @input.last.downcase == "exit"
         goodbye
         exit
@@ -64,7 +64,7 @@ class CareerProfiles::CLI
       puts "Enter the number of the occupation you'd like to see, type back to see the career interest list again or type exit:"
       @input << gets.strip.downcase
       i = @input[(@input.length)-2]
-      occupations = @career_interest[i.to_i-1].occupations
+      occupations = @career_interests[i.to_i-1].occupations
       if @input.last.to_i > 0 && @input.last.to_i <= occupations.length.to_i
         occupations[@input.last.to_i-1].display_occupation
       elsif @input.last.downcase == "back"

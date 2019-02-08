@@ -5,13 +5,14 @@ class CareerProfiles::Scraper
   end
 
   def self.scrape_career_interests
-    names = []
+    list = []
     names_index = get_page.css("div.careerCol p.careerList")
     names_index.each do |c|
-      names << c.text
+      list << c.text
     end
-    names.map! do |c|
-      c.gsub("[+] Show]", "")
+    names = []
+    list.each do |c|
+      names << c.gsub("[+] Show]", "")
     end
 
     career_interests = []
