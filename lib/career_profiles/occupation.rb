@@ -23,8 +23,7 @@ class CareerProfiles::Occupation
 
   def display_occupation
     puts " "
-    puts "Name: #{self.name}"
-    puts "For more information click here: #{self.url}"
+    puts "NAME: #{self.name}"
     puts "------------------------"
     puts " "
     puts "KEY RESPONSIBILITIES"
@@ -42,5 +41,7 @@ class CareerProfiles::Occupation
     puts "2017 MEDIAN PAY"
     puts "----------------------"
     puts "#{self.median_pay_2017}"
+    puts ""
+    puts "For more information and video click here: #{self.url}"
   end
 end

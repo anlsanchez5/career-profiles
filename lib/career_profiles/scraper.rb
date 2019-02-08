@@ -12,8 +12,9 @@ class CareerProfiles::Scraper
     end
     names = []
     list.each do |c|
-      names << c.gsub("[+] Show]", "")
+      names << c.gsub("[+] Show", "")
     end
+
 
     career_interests = []
     names.each {|name| career_interests << {:name => name}}
@@ -49,7 +50,7 @@ class CareerProfiles::Scraper
     index = get_occupation_page(link).css("table#quickfacts tbody tr")
     pay_index = index[0]
     med_pay = pay_index.css("td").text.strip
-    med_pay = med_pay.gsub(" ", "")
+    med_pay = med_pay.gsub("\n", ' ').squeeze(' ')
 
     education_index = index[1]
     education = education_index.css("td").text.strip

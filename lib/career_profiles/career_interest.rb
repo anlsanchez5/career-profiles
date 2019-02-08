@@ -22,6 +22,7 @@ class CareerProfiles::CareerInterest
   end
 
   def list_occupations
+    puts ""
     @occupations.each.with_index(1) do |occupation, i|
       puts "#{i}. #{occupation.name}"
     end

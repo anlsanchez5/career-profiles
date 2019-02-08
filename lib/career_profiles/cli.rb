@@ -1,6 +1,7 @@
 require 'pry'
 class CareerProfiles::CLI
   def run
+    puts "Loading data..."
     make_career_interests
     add_occupations_to_career_interests
     add_attributes_to_occupations

@@ -1,6 +1,6 @@
 # CareerProfiles
 
-This Ruby Gem provides a CLI to view profile information for career occupations per the CareerProfiles website.
+This Ruby Gem provides a CLI to view profile information for occupations by career interests per the Bureau of Labor Statistics website.
 
 ## Installation
 

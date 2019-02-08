@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["'Angelica Sanchez'"]
   spec.email         = ["'anlsanchez@ucdavis.edu'"]
   spec.files         = ["lib/career_profiles.rb", "lib/career_profiles/cli.rb", "lib/career_profiles/career.rb", "lib/career_profiles/occupation.rb", "lib/career_profiles/scraper.rb"]
-  spec.summary       = "Career Profiles and their Occupations"
-  spec.description   = "Provides details on occupations by career path."
+  spec.summary       = "Career Intrests and their Occupations"
+  spec.description   = "Provides details on occupations by career interests."
   spec.homepage      = 'http://rubygems.org/gems/career-profiles'
   spec.license       = "MIT"
 
