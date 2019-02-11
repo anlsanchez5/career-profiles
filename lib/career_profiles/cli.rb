@@ -78,6 +78,7 @@ class CareerProfiles::CLI
         puts "Not sure what you want."
         @input.pop
         @career_interests[@input.last.to_i-1].list_occupations
+        occupation
       end
     end
 
