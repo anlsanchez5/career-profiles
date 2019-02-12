@@ -7,10 +7,10 @@ Gem::Specification.new do |spec|
   spec.date          = '2019-01-29'
   spec.authors       = ["'Angelica Sanchez'"]
   spec.email         = ["'anlsanchez@ucdavis.edu'"]
-  spec.files         = ["lib/career_profiles.rb", "lib/career_profiles/cli.rb", "lib/career_profiles/career.rb", "lib/career_profiles/occupation.rb", "lib/career_profiles/scraper.rb"]
+  spec.files         = ["lib/career_profiles.rb", "lib/career_profiles/cli.rb", "lib/career_profiles/career_interest.rb", "lib/career_profiles/occupation.rb", "lib/career_profiles/scraper.rb"]
   spec.summary       = "Career Intrests and their Occupations"
   spec.description   = "Provides details on occupations by career interests."
-  spec.homepage      = 'http://rubygems.org/gems/career-profiles'
+  spec.homepage      = 'https://github.com/anlsanchez5/career-profiles'
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
