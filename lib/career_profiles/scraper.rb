@@ -5,33 +5,30 @@ class CareerProfiles::Scraper
   end
 
   def self.scrape_career_interests
-    list = []
     names_index = get_page.css("div.careerCol p.careerList")
-    names_index.each do |c|
-      list << c.text
+    list = names_index.collect do |career_index|
+      career_index.text
     end
-    names = []
-    list.each do |c|
-      names << c.gsub("[+] Show", "")
+
+    names = list.collect do |career_index|
+      career_index.gsub("[+] Show", "")
     end
 
 
-    career_interests = []
-    names.each {|name| career_interests << {:name => name}}
+    career_interests = names.collect {|name| {:name => name}}
     career_interests
   end
 
   def self.scrape_occupations(i)
-    names = []
     career_interest_index = get_page.css("div.careerNames ul")[i].css("a")
-    career_interest_index.each do |o|
-      names << o.text
+
+    names = career_interest_index.collect do |occupation_index|
+      occupation_index.text
     end
     names.delete_if {|x| x == "Designer"}
 
-    urls = []
-    career_interest_index.each do |o|
-      urls << o.attribute("href").text
+    urls = career_interest_index.collect do |occupation_index|
+      occupation_index.attribute("href").text
     end
     urls.delete_if {|x| x == "https://www.bls.gov/ooh/arts-and-design/home.htm"}
 
