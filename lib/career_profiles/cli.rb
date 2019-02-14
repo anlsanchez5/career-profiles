@@ -6,7 +6,6 @@ class CareerProfiles::CLI
     make_career_interests
     add_occupations_to_career_interests
     add_attributes_to_occupations
-    @input = []
     start
   end
 
@@ -50,11 +49,11 @@ class CareerProfiles::CLI
     puts ""
     puts "Enter the number of the career interest you'd like to see occupations on or type exit:"
 
-    @input << gets.strip
+    @input1 = gets.strip
 
-      if @input.last.to_i > 0 && @input.last.to_i <= @career_interests.length.to_i
-        @career_interests[@input.last.to_i-1].list_occupations
-      elsif @input.last.downcase == "exit"
+      if @input1.to_i > 0 && @input1.to_i <= @career_interests.length.to_i
+        @career_interests[@input1.to_i-1].list_occupations
+      elsif @input1.downcase == "exit"
         goodbye
         exit
       else
