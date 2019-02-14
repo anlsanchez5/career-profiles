@@ -51,39 +51,37 @@ class CareerProfiles::CLI
 
     @input1 = gets.strip
 
-      if @input1.to_i > 0 && @input1.to_i <= @career_interests.length.to_i
-        CareerProfiles::CareerInterest.find(@input).list_occupations
-      elsif @input1.downcase == "exit"
-        goodbye
-        exit
-      else
-        puts ""
-        puts "Not sure what you want."
-        puts ""
-        career_interest
-      end
+    if @input1.to_i > 0 && @input1.to_i <= @career_interests.length
+      @selected_career_interest = CareerProfiles::CareerInterest.find(@input1)
+      @selected_career_interest.list_occupations
+    elsif @input1.downcase == "exit"
+      goodbye
+      exit
+    else
+      puts ""
+      puts "Not sure what you want."
+      puts ""
+      career_interest
+    end
   end
 
   def occupation
     puts ""
     puts "Enter the number of the occupation you'd like to see, type back to see the career interest list again or type exit:"
 
-    @input << gets.strip.downcase
-    i = @input[(@input.length)-2]
-    occupations = @career_interests[i.to_i-1].occupations
+    @input2 = gets.strip.downcase
 
-    if @input.last.to_i > 0 && @input.last.to_i <= occupations.length.to_i
-      occupations[@input.last.to_i-1].display_occupation
-    elsif @input.last.downcase == "back"
+    if @input2.to_i > 0 && @input2.to_i <= @selected_career_interest.occupations.length
+      @selected_career_interest.occ_find(@input2).display_occupation
+    elsif @input2.downcase == "back"
       start
-    elsif @input.last.downcase == "exit"
+    elsif @input2.downcase == "exit"
       goodbye
       exit
     else
       puts ""
       puts "Not sure what you want."
-      @input.pop
-      @career_interests[@input.last.to_i-1].list_occupations
+      @selected_career_interest.list_occupations
       occupation
     end
   end
