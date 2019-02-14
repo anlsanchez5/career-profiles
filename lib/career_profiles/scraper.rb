@@ -1,26 +1,22 @@
 require'pry'
 class CareerProfiles::Scraper
-  def self.get_page
-    Nokogiri::HTML(open("https://www.bls.gov/k12/content/students/careers/career-exploration.htm"))
+  BASE_LINK = "https://www.bls.gov/k12/content/students/careers/career-exploration.htm"
+
+  def self.get_page(link)
+    Nokogiri::HTML(open(link))
   end
 
   def self.scrape_career_interests
-    names_index = get_page.css("div.careerCol p.careerList")
-    list = names_index.collect do |career_index|
-      career_index.text
+    names_index = get_page(BASE_LINK).css("div.careerCol p.careerList")
+    names = names_index.collect do |career_index|
+      career_index.text.gsub("[+] Show", "")
     end
-
-    names = list.collect do |career_index|
-      career_index.gsub("[+] Show", "")
-    end
-
 
     career_interests = names.collect {|name| {:name => name}}
-    career_interests
   end
 
   def self.scrape_occupations(i)
-    career_interest_index = get_page.css("div.careerNames ul")[i].css("a")
+    career_interest_index = get_page(BASE_LINK).css("div.careerNames ul")[i].css("a")
 
     names = career_interest_index.collect do |occupation_index|
       occupation_index.text
@@ -39,12 +35,8 @@ class CareerProfiles::Scraper
     occupations
   end
 
-  def self.get_occupation_page(link)
-    Nokogiri::HTML(open(link))
-  end
-
   def self.scrape_occupation_attributes(link)
-    index = get_occupation_page(link).css("table#quickfacts tbody tr")
+    index = get_page(link).css("table#quickfacts tbody tr")
     pay_index = index[0]
     med_pay = pay_index.css("td").text.strip
     med_pay = med_pay.gsub("\n", ' ').squeeze(' ')
@@ -55,7 +47,7 @@ class CareerProfiles::Scraper
     outlook_index = index[5]
     outlook_2016_26 = outlook_index.css("td").text.strip
 
-    role_index = get_occupation_page(link).css("article")
+    role_index = get_page(link).css("article")
     role = role_index.css("p")[1].text
 
     occupation_attributes = {
@@ -64,6 +56,5 @@ class CareerProfiles::Scraper
       :outlook_2016_26 => outlook_2016_26,
       :key_responsibilities => role,
     }
-    occupation_attributes
   end
 end

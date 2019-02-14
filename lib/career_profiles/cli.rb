@@ -1,7 +1,7 @@
 require 'pry'
 class CareerProfiles::CLI
   def run
-    puts "Loading data..."
+    puts "Retrieving career data for you..."
 
     make_career_interests
     add_occupations_to_career_interests
