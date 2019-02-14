@@ -16,6 +16,10 @@ class CareerProfiles::CareerInterest
     @@all
   end
 
+  def self.find(i)
+    all[i.to_i-1]
+  end
+
   def add_occupations(occupation_hash)
     occupation = CareerProfiles::Occupation.new_from_collection(occupation_hash)
     @occupations = occupation

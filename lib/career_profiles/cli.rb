@@ -52,7 +52,7 @@ class CareerProfiles::CLI
     @input1 = gets.strip
 
       if @input1.to_i > 0 && @input1.to_i <= @career_interests.length.to_i
-        @career_interests[@input1.to_i-1].list_occupations
+        CareerProfiles::CareerInterest.find(@input).list_occupations
       elsif @input1.downcase == "exit"
         goodbye
         exit
