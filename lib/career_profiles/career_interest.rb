@@ -16,6 +16,12 @@ class CareerProfiles::CareerInterest
     @@all
   end
 
+  def self.list_career_interests
+    all.each.with_index(1) do |career_interest, i|
+      puts "#{i}. #{career_interest.name}"
+    end
+  end
+
   def self.find(i)
     all[i.to_i-1]
   end

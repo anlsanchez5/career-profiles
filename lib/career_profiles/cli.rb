@@ -1,6 +1,7 @@
 require 'pry'
 class CareerProfiles::CLI
   def run
+    puts ""
     puts "Retrieving career data for you..."
 
     make_career_interests
@@ -10,6 +11,7 @@ class CareerProfiles::CLI
   end
 
   def start
+    welcome
     career_interest
     occupation
     options
@@ -34,24 +36,21 @@ class CareerProfiles::CLI
     end
   end
 
-  def list_career_interests
+  def welcome
+    puts ""
     puts "Welcome to Occupation Profiles by Career Interests"
-
-    @career_interests = CareerProfiles::CareerInterest.all
-    @career_interests.each.with_index(1) do |career_interest, i|
-      puts "#{i}. #{career_interest.name}"
-    end
+    puts ""
   end
 
   def career_interest
-    list_career_interests
+    CareerProfiles::CareerInterest.list_career_interests
 
     puts ""
     puts "Enter the number of the career interest you'd like to see occupations on or type exit:"
 
     @input1 = gets.strip
 
-    if @input1.to_i > 0 && @input1.to_i <= @career_interests.length
+    if @input1.to_i > 0 && @input1.to_i <= CareerProfiles::CareerInterest.all.length
       @selected_career_interest = CareerProfiles::CareerInterest.find(@input1)
       @selected_career_interest.list_occupations
     elsif @input1.downcase == "exit"
