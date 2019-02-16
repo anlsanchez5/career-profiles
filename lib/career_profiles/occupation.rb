@@ -12,8 +12,7 @@ class CareerProfiles::Occupation
   end
 
   def self.new_from_collection(occupation_array)
-    occupations = occupation_array.collect{|occupation_hash| self.new(occupation_hash)}
-    occupations
+    occupation_array.collect{|occupation_hash| self.new(occupation_hash)}
   end
 
   def add_attributes(attributes_hash)
